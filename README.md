@@ -1,4 +1,4 @@
-# Generalization of Decentralized SGD
+# [ICML 2022] Generalization of Decentralized SGD
 
 The repository contains the offical implementation of the paper
 
