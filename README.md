@@ -2,4 +2,4 @@
 
 The repository contains the offical implementation of the paper
 
-> Topology-aware Generalization of Decentralized SGD, ICML 2022
+> [ICML 2022] Topology-aware Generalization of Decentralized SGD
