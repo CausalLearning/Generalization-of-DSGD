@@ -8,6 +8,7 @@ This paper studies the algorithmic stability and generalizability of decentraliz
 
 ## Environment
 
+```
 numpy==1.21.2
 
 Pillow==9.2.0
@@ -15,6 +16,7 @@ Pillow==9.2.0
 torch==1.10.1
 
 torchvision==0.11.2
+```
 
 ## Dataset
 
