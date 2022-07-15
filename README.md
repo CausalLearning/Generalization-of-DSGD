@@ -20,9 +20,6 @@ torchvision>=0.11.2
 
 ## Dataset
 The Tiny Imagenet dataset can be downloaded from [here](https://paperswithcode.com/dataset/tiny-imagenet). The CIFAR-10 and CIFAR-100 datasets can be downloaded automatically when running the code.
-- data (stored data)
-- root
-  - dataset (the code to read the data)
 
 ## Example of usage
 Train ResNet-18 on CIFAR-10 dataset with fully-connected topology:
