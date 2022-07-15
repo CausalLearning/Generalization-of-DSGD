@@ -9,19 +9,19 @@ This paper studies the algorithmic stability and generalizability of decentraliz
 ## Environment
 
 ```
-numpy==1.21.2
+numpy>=1.21.2
 
-Pillow==9.2.0
+Pillow>=9.2.0
 
-torch==1.10.1
+torch>=1.10.1
 
-torchvision==0.11.2
+torchvision>=0.11.2
 ```
 
 ## Dataset
-
 - root
-  - 
+  - data (stored data)
+  - dataset (code to read data)
 
 ## Usage
 
@@ -29,7 +29,7 @@ torchvision==0.11.2
 python gpu_work.py --seed 555 --mode "all" --size 64 --batch_size 64 --learning_rate 0.4   --model_name "ResNet18" --dataset_name "CIFAR10" --milestones 2400 4800 --early_stop 6000 --num_epoch 6000 --gpu True
 ```
 
-## Citing this paper
+## Citing this repository
 
 Please cite our paper if you find this repo useful in your work:
 
