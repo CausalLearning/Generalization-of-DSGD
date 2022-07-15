@@ -21,12 +21,24 @@ torchvision>=0.11.2
 ## Dataset
 - root
   - data (stored data)
-  - dataset (code to read data)
+  - dataset (code to read the data)
 
-## Usage
-
+## Example of usage
+Train ResNet-18 on CIFAR-10 dataset with fully-connected topology:
 ```
 python gpu_work.py --seed 555 --mode "all" --size 64 --batch_size 64 --learning_rate 0.4   --model_name "ResNet18" --dataset_name "CIFAR10" --milestones 2400 4800 --early_stop 6000 --num_epoch 6000 --gpu True
+```
+Train ResNet-18 on CIFAR-100 dataset with ring topology:
+```
+python gpu_work.py --seed 555 --mode "ring" --size 64 --batch_size 64 --learning_rate 0.4   --model_name "ResNet18" --dataset_name "CIFAR100" --milestones 4000 8000 --early_stop 10000 --num_epoch 10000 --gpu True
+```
+Train ResNet-18 on Tiny ImageNet dataset with grid topology:
+```
+python gpu_work.py --seed 555 --mode "meshgrid" --size 64 --batch_size 64 --learning_rate 0.4   --model_name "ResNet18" --dataset_name "TinyImageNet" --milestones 4000 8000 --early_stop 10000 --num_epoch 10000 --gpu True
+```
+Train VGG-11 on CIFAR-10 dataset with exponential topology:
+```
+python gpu_work.py --seed 555 --mode "exponential" --size 64 --batch_size 64 --learning_rate 0.4   --model_name "VGG11BN" --dataset_name "TinyImageNet" --milestones 8000 16000 --early_stop 20000 --num_epoch 20000 --gpu True
 ```
 
 ## Citing this repository
