@@ -19,7 +19,8 @@ torchvision>=0.11.2
 ```
 
 ## Dataset
-The Tiny Imagenet dataset can be downloaded from [here](https://paperswithcode.com/dataset/tiny-imagenet). The CIFAR-10 and CIFAR-100 datasets can be downloaded automatically when running the code.
+The Tiny Imagenet dataset can be downloaded from [here](https://paperswithcode.com/dataset/tiny-imagenet). The CIFAR-10 and CIFAR-100 datasets can be downloaded automatically by ```torchvision.datasets``` when running the code.
+In addition, you can use ```--path```(default = "../data") to set your dataset folder location.
 
 ## Example of usage
 Train ResNet-18 on CIFAR-10 dataset with fully-connected topology:
@@ -38,6 +39,13 @@ Train VGG-11 on CIFAR-10 dataset with exponential topology:
 ```
 python gpu_work.py --seed 555 --mode "exponential" --size 64 --batch_size 64 --learning_rate 0.4   --model_name "VGG11BN" --dataset_name "TinyImageNet" --milestones 8000 16000 --early_stop 20000 --num_epoch 20000 --gpu True
 ```
+<details>
+	<summary>Parameter details</summary>
+    <ol>
+        <li>seed: </li>
+        <li>mode: </li>
+    </ol>
+</details>
 
 ## Citing this repository
 
