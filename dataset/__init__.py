@@ -7,7 +7,7 @@ from .tiny_imagenet import tiny_imagenet
 def get_dataset(rank, dataset_name,
                 split=None, batch_size=None,
                 transforms=None, is_distribute=True,
-                seed=777, **kwargs):
+                seed=777, path="../data", **kwargs):
     if dataset_name == "CIFAR10":
         return cifar10(rank=rank,
                        split=split,
@@ -15,6 +15,7 @@ def get_dataset(rank, dataset_name,
                        transforms=transforms,
                        is_distribute=is_distribute,
                        seed=seed,
+                       path=path,
                        **kwargs)
     elif dataset_name == "CIFAR100":
         return cifar100(rank=rank,
@@ -23,6 +24,7 @@ def get_dataset(rank, dataset_name,
                         transforms=transforms,
                         is_distribute=is_distribute,
                         seed=seed,
+                        path=path,
                         **kwargs)
     elif dataset_name == "TinyImageNet":
         return tiny_imagenet(rank=rank,
@@ -31,4 +33,5 @@ def get_dataset(rank, dataset_name,
                              transforms=transforms,
                              is_distribute=is_distribute,
                              seed=seed,
+                             path=path,
                              **kwargs)

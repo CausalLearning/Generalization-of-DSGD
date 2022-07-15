@@ -1,5 +1,6 @@
 import datetime
 import copy
+import os
 
 import numpy as np
 import torch
@@ -24,7 +25,7 @@ def work():
 
 def run(num_epoch, model_name, dataset_name, mode, size,
         batch_size, lr, momentum, weight_decay,
-        milestones, gamma, gpu, early_stop, seed, **kwargs):
+        milestones, gamma, gpu, early_stop, seed, n_swap, path, **kwargs):
     tb = SummaryWriter(comment=f"{seed}_{model_name}_{dataset_name}_{mode}_{batch_size}_{lr}_{size}")
 
     temp_train_loader, temp_test_loader, input_size, classes = get_dataset(rank=0,
@@ -33,8 +34,8 @@ def run(num_epoch, model_name, dataset_name, mode, size,
                                                                            batch_size=256,
                                                                            is_distribute=False,
                                                                            seed=seed,
+                                                                           path=path,
                                                                            **kwargs)
-    temp_model = get_model(model_name, input_size, classes)
     device = torch.device("cuda" if torch.cuda.is_available() and gpu else "cpu")
     P = generate_P(mode, size)
     criterion = nn.CrossEntropyLoss()
@@ -47,6 +48,7 @@ def run(num_epoch, model_name, dataset_name, mode, size,
                                                                      split=split,
                                                                      batch_size=batch_size,
                                                                      seed=seed,
+                                                                     path=path,
                                                                      **kwargs)
         torch.manual_seed(rank)
         model = get_model(model_name, input_size, classes)
@@ -93,7 +95,7 @@ def run(num_epoch, model_name, dataset_name, mode, size,
 
             if total_step % 50 == 0:
                 test_all(temp_model, temp_train_loader, temp_test_loader,
-                         criterion, None, total_step, tb, device, n_swap=kwargs.get('n_swap'))
+                         criterion, None, total_step, tb, device, n_swap=n_swap)
             if total_step == early_stop:
                 break
             
@@ -102,6 +104,7 @@ def run(num_epoch, model_name, dataset_name, mode, size,
                   flush=True, end="")
         if total_step == early_stop:
             break
+
 
 def test_all(model, train_loader, test_loader, criterion, epoch, total_step, tb, device, n_swap=None):
     print(f"\n| Test All |", flush=True, end="")
@@ -172,6 +175,8 @@ def test_all(model, train_loader, test_loader, criterion, epoch, total_step, tb,
         tb.add_scalar("train acc", total_train_acc, epoch)
 
     if n_swap is not None:
+        if not os.path.exists("./trained/"):
+            os.mkdir("./trained/")
         if total_test_acc > TEST_ACCURACY:
             torch.save(model.state_dict(), f"./trained/resnet18_tinyimagenet_{n_swap}_best.pt")
         torch.save(model.state_dict(), f"./trained/resnet18_tinyimagenet_{n_swap}_last.pt")
