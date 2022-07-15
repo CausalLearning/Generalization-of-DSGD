@@ -12,6 +12,8 @@ def get_config():
     parser.add_argument('-mn', '--model_name', help='model name, default=\'Linear\'',
                         dest='model_name', type=str, default='ResNet18')
     # dataset
+    parser.add_argument('-p', '--path', help='path of dataset, default=\'../data\'',
+                        dest='path', type=str, default='../data')
     parser.add_argument('-dn', '--dataset_name', help='dataset_name, default=\'MNIST\'',
                         dest='dataset_name', type=str, default='CIFAR10')
     parser.add_argument('-bs', '--batch_size', help='batch_size, default=32',

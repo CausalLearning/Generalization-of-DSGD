@@ -1,3 +1,5 @@
+import os
+
 from torch.utils.data import DataLoader
 import torchvision.transforms as tfs
 from torchvision.datasets import CIFAR100
@@ -6,7 +8,7 @@ from .distributed_dataset import distributed_dataset
 
 def cifar100(rank, split=None, batch_size=None,
              transforms=None, test_batch_size=64,
-             is_distribute=True, seed=777, **kwargs):
+             is_distribute=True, seed=777, path="../data", **kwargs):
     if transforms is None:
         transforms = tfs.Compose([
             tfs.ToTensor(),
@@ -16,8 +18,10 @@ def cifar100(rank, split=None, batch_size=None,
         batch_size = 1
     if split is None:
         split = [1.0]
-    train_set = CIFAR100("../data", train=True, download=True, transform=transforms)
-    test_set = CIFAR100("../data", train=False, download=True, transform=transforms)
+    if not os.path.exists(path):
+        os.mkdir(path)
+    train_set = CIFAR100(root=path, train=True, download=True, transform=transforms)
+    test_set = CIFAR100(root=path, train=False, download=True, transform=transforms)
     if is_distribute:
         train_set = distributed_dataset(train_set, split, rank, seed=seed)
     train_loader = DataLoader(train_set, batch_size=batch_size, shuffle=True)

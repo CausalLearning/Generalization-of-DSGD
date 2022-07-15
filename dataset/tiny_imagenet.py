@@ -33,7 +33,7 @@ class TinyImageNet(Dataset):
 
 def tiny_imagenet(rank, split=None,
                   batch_size=None, transforms=None
-                  , test_batch_size=64, is_distribute=True, seed=777, **kwargs):
+                  , test_batch_size=64, is_distribute=True, seed=777, path="../data", **kwargs):
     if transforms is None:
         transforms = tfs.Compose([
             tfs.ToTensor(),
@@ -42,8 +42,10 @@ def tiny_imagenet(rank, split=None,
         batch_size = 1
     if split is None:
         split = [1.0]
-    train_set = TinyImageNet("../data", True, transforms)
-    test_set = TinyImageNet("../data", False, transforms)
+    if not os.path.exists(path):
+        os.mkdir(path)
+    train_set = TinyImageNet(path, True, transforms)
+    test_set = TinyImageNet(path, False, transforms)
     if is_distribute:
         train_set = distributed_dataset(train_set, split, rank, seed=seed)
     train_loader = DataLoader(train_set, batch_size=batch_size, shuffle=True, drop_last=True)
