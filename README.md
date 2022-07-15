@@ -19,7 +19,7 @@ torchvision>=0.11.2
 ```
 
 ## Dataset
-The Tiny Imagenet dataset can be downloaded from [here](http://cs231n.stanford.edu/tiny-imagenet-200.zip). The CIFAR-10 and CIFAR-100 datasets can be downloaded automatically when running the code.
+The Tiny Imagenet dataset can be downloaded from [here](https://paperswithcode.com/dataset/tiny-imagenet). The CIFAR-10 and CIFAR-100 datasets can be downloaded automatically when running the code.
 - data (stored data)
 - root
   - dataset (the code to read the data)
